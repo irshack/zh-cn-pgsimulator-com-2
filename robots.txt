@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://irshack.github.io/zh-cn-pgsimulator-com-2/sitemap.xml

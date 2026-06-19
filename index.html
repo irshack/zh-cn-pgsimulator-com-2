@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pg模拟器 · 站点介绍与说明</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f4f6;
+            color: #1e2a3a;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1120px;
+            width: 100%;
+        }
+
+        /* 主视觉卡片 (hero) */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e8ecf0;
+            padding: 3rem 2.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .hero-card h1 {
+            font-size: 2.4rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            color: #0d1b2a;
+        }
+
+        .hero-card .subhead {
+            font-size: 1.1rem;
+            color: #4b5b6b;
+            max-width: 680px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #eef2f6;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            border: 1px solid #dce2e8;
+            margin-top: 0.3rem;
+        }
+
+        /* 卡片通用设计 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #e2e7ed;
+            padding: 2rem 1.8rem 2rem 1.8rem;
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 550;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #ecf0f3;
+            padding-bottom: 0.5rem;
+            color: #162433;
+        }
+
+        .card p {
+            color: #2c3f52;
+            margin-bottom: 0.9rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #eaeef2;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .card li::before {
+            content: "▹";
+            color: #5f7d9c;
+            font-size: 1.1rem;
+        }
+
+        .card li:last-child {
+            border-bottom: none;
+        }
+
+        /* 全宽卡片 (自然链接段落) */
+        .full-card {
+            background: #ffffff;
+            border-radius: 22px;
+            border: 1px solid #e2e7ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 2rem 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .full-card h2 {
+            font-size: 1.5rem;
+            font-weight: 550;
+            margin-bottom: 1rem;
+            color: #162433;
+        }
+
+        .full-card p {
+            color: #2c3f52;
+            margin-bottom: 0.9rem;
+        }
+
+        .full-card a {
+            color: #1f5f8e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #b8cbd9;
+            font-weight: 500;
+        }
+
+        .full-card a:hover {
+            color: #0c3f62;
+            text-decoration-color: #1f5f8e;
+        }
+
+        /* 提示 / FAQ 摘要卡片 (组合) */
+        .tip-faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tip-card, .faq-card {
+            background: #ffffff;
+            border-radius: 22px;
+            border: 1px solid #e2e7ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 1.8rem 2rem;
+        }
+
+        .tip-card h3, .faq-card h3 {
+            font-size: 1.25rem;
+            font-weight: 540;
+            margin-bottom: 0.8rem;
+            color: #1c3144;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #1c3144;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-item p {
+            color: #3b4e5f;
+            font-size: 0.95rem;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tip-card li {
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #eaeef2;
+            color: #2c3f52;
+        }
+
+        .tip-card li::before {
+            content: "•";
+            color: #728ba5;
+            margin-right: 0.6rem;
+        }
+
+        .tip-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            color: #6b7d8f;
+            font-size: 0.9rem;
+            border-top: 1px solid #dce2e8;
+            padding-top: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 760px) {
+            .card-grid, .tip-faq-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-card h1 {
+                font-size: 2rem;
+            }
+
+            .full-card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .tip-card, .faq-card {
+                padding: 1.5rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+        <h1>pg模拟器 · 站点介绍</h1>
+        <p class="subhead">
+            一个专注于整理、说明与索引的页面，帮助你快速了解 pg模拟器 的功能、定位与适用情境。
+        </p>
+        <span class="hero-tag">信息卡片式 · 清晰平实 · 可信说明</span>
+    </div>
+
+    <!-- 用途卡片 + 适合人群 (双栏) -->
+    <div class="card-grid">
+        <div class="card">
+            <h2>主要用途</h2>
+            <ul>
+                <li>模拟环境基础：提供接近真实逻辑的模拟运行方式，便于理解与测试。</li>
+                <li>操作参考：梳理常见交互与反馈流程，降低上手门槛。</li>
+                <li>适用多种场景：无论是学习概念还是快速验证，都能找到对应路径。</li>
+            </ul>
+            <p style="margin-top: 1rem; color: #3d566b;">
+                站点内容围绕 模拟器特性 展开，不夸大效果，以实用参考为主要目标。
+            </p>
+        </div>
+        <div class="card">
+            <h2>适合人群</h2>
+            <ul>
+                <li>对模拟器原理感兴趣的初学者</li>
+                <li>需要快速查阅功能说明的普通用户</li>
+                <li>希望获得稳定参考信息的技术爱好者</li>
+                <li>寻找轻量级入门指引的体验者</li>
+            </ul>
+            <p style="margin-top: 1rem; color: #3d566b;">
+                页面内容均经过整理，尽力保持中立与易懂。
+            </p>
+        </div>
+    </div>
+
+    <!-- 自然链接段落 (全宽卡片) -->
+    <div class="full-card">
+        <h2>关于本站与参考来源</h2>
+        <p>
+            本页是对 <a href="https://zh-cn-pgsimulator.com">pg模拟器</a> 的说明性索引站点。内容基于公开资料与功能体验整理而成，不涉及任何破解、违规或诱导性描述。所有引述均以客观介绍为目的。
+        </p>
+        <p>
+            如果你需要直接使用或体验 <a href="https://zh-cn-pgsimulator.com">pg模拟器</a>，可以将其作为第一手参考。本站仅提供辅助理解的结构化信息，不替代原站功能。
+        </p>
+        <p style="margin-bottom: 0;">
+            我们建议你在熟悉说明后，结合原站实际界面进行操作，以获得最准确的反馈。
+        </p>
+    </div>
+
+    <!-- 提示 + FAQ 摘要 (双栏) -->
+    <div class="tip-faq-grid">
+        <div class="tip-card">
+            <h3>使用提示</h3>
+            <ul>
+                <li>所有模拟输出仅供学习与参考，不代表最终结果。</li>
+                <li>部分功能可能依赖网络环境，建议在网络稳定的条件下使用。</li>
+                <li>如遇到异常表现，可先检查模拟参数是否超出建议范围。</li>
+                <li>不同版本之间界面细节可能存在微调，以原站最新版为准。</li>
+            </ul>
+        </div>
+        <div class="faq-card">
+            <h3>FAQ 摘要</h3>
+            <div class="faq-item">
+                <strong>pg模拟器 是否需要注册？</strong>
+                <p>通常无需强制注册即可使用基础功能，部分扩展选项可能单独说明。</p>
+            </div>
+            <div class="faq-item">
+                <strong>模拟数据是否持久保存？</strong>
+                <p>默认情况下模拟数据仅在当前会话有效，刷新即重置，具体视原站设定而定。</p>
+            </div>
+            <div class="faq-item">
+                <strong>页面中的说明是否保持更新？</strong>
+                <p>我们会根据主要版本变化进行调整，但建议以原站实际页面为最终依据。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚说明 -->
+    <div class="footer-note">
+        信息卡片式说明页 · 内容整理自公开资料 · 不构成任何承诺或担保
+    </div>
+
+</div>
+</body>
+</html>
